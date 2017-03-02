@@ -87,6 +87,28 @@ builder.registerPostLoadHook(function() {
     builder.record.stop();
   });
 
+  // Start Transaction
+  jQuery('#record-start-tx').click(function (e) {
+    var txName = jQuery('#record-tx-name').val();
+    if(typeof txName === 'string' && txName !== ""){
+      jQuery('#activeTxList').append('<option id="opt_{txName}" value="{txName}">{txName}</option>'.replace(/{txName}/g, txName));
+      builder.record.startTx(txName);
+    }else{
+      alert('Invalid Transaction Name input');
+    }
+  });
+  // Stop Transaction
+  jQuery('#record-stop-tx').click(function (e) {
+    var txName = jQuery('#record-tx-name').val();
+    var optElem = jQuery('#opt_' + txName);
+    if(optElem.length){
+      builder.record.stopTx(txName);
+      optElem.remove();
+    }else{
+      alert('No Transaction with ' + txName + ' exists');
+    }
+  });
+
   jQuery('#record-verify').click(function (e) {
     if (builder.record.verifyExploring) {
       builder.record.stopVerifyExploring();

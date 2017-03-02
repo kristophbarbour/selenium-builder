@@ -61,6 +61,23 @@ builder.record.recordStep = function(step) {
   builder.stepdisplay.update();
 };
 
+// Start Transaction step
+builder.record.startTx = function(tx_name) {
+  var step = new builder.Step(builder.selenium2.stepTypes.startTx, tx_name);
+  builder.record.lastRecordedStep = step;
+  builder.getScript().insertStep(step, builder.record.insertionIndex);
+  builder.record.insertionIndex++;
+  builder.stepdisplay.update();
+};
+// Stop Transaction step
+builder.record.stopTx = function(tx_name) {
+  var step = new builder.Step(builder.selenium2.stepTypes.stopTx, tx_name);
+  builder.record.lastRecordedStep = step;
+  builder.getScript().insertStep(step, builder.record.insertionIndex);
+  builder.record.insertionIndex++;
+  builder.stepdisplay.update();
+};
+
 builder.record.getLastRecordedStep = function() {
   //if (builder.record.lastRecordedStep) {
   return builder.record.lastRecordedStep;

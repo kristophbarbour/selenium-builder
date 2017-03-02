@@ -132,7 +132,9 @@ builder.selenium2.__stepData = {
   "verifyEval":                      ["script", "value"],
   "waitForEval":                     ["script", "value"],
   "storeEval":                       ["script", "variable"],
-  "setWindowSize":                   ["width", "height"]
+  "setWindowSize":                   ["width", "height"],
+  "startTx":                         ["name"], 
+  "stopTx":                          ["name"]
 };
 
 builder.selenium2.__stepNotes = {

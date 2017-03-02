@@ -30,6 +30,9 @@ builder.registerPostLoadHook(function() {
   jQuery('#edit-clearresults').text(_t('clear_results'));
   jQuery('#edit-rc-connecting-text').text(_t('connecting'));
   jQuery('#record-verify').text(_t('record_verification'));
+  jQuery('#record-start-tx').text(_t('start_transaction'));
+  jQuery('#record-stop-tx').text(_t('stop_transaction'));
+  jQuery('#record-tx-name').attr('placeholder', _t('transaction_name'));
   jQuery('#record-stop-button').text(_t('stop_recording'));
   
   // Hide menus

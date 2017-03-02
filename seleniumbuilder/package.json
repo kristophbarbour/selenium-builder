@@ -1,0 +1,10 @@
+{
+  "name": "australenium",
+  "title": "australenium",
+  "id": "4wf56ef435w6@jds",
+  "description": "a basic Selnium Builder add-on fork",
+  "main": "./content/seleniumbuilder3.js",
+  "author": "",
+  "license": "MPL-2.0",
+  "version": "0.1"
+}

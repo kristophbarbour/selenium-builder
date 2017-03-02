@@ -40,6 +40,10 @@ builder.selenium2.io.addLangFormatter({
       "{ind}${{variable}} = {text}\n",
     "print":
       "{ind}print({text})\n",
+    "startTx":
+      "{ind}print('[start_tx] {name}')\n",
+    "stopTx":
+      "{ind}print('[stop_tx] {name}')\n",
     "pause":
       "{ind}time.sleep(float({waitTime}) / 1000)\n",
     "clickElement":
