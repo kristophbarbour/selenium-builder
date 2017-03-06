@@ -60,6 +60,14 @@ builder.record.recordStep = function(step) {
   builder.record.insertionIndex++;
   builder.stepdisplay.update();
 };
+// Generic Step
+builder.record.addEmptyStep = function() {
+  var step = new builder.Step(builder.selenium2.stepTypes.print, "");
+  builder.record.lastRecordedStep = step;
+  builder.getScript().insertStep(step, builder.record.insertionIndex);
+  builder.record.insertionIndex++;
+  builder.stepdisplay.update();
+};
 
 // Start Transaction step
 builder.record.startTx = function(tx_name) {
@@ -72,6 +80,22 @@ builder.record.startTx = function(tx_name) {
 // Stop Transaction step
 builder.record.stopTx = function(tx_name) {
   var step = new builder.Step(builder.selenium2.stepTypes.stopTx, tx_name);
+  builder.record.lastRecordedStep = step;
+  builder.getScript().insertStep(step, builder.record.insertionIndex);
+  builder.record.insertionIndex++;
+  builder.stepdisplay.update();
+};
+// Get Browser Performance data
+builder.record.getPerf = function() {
+  var step = new builder.Step(builder.selenium2.stepTypes.getPerf);
+  builder.record.lastRecordedStep = step;
+  builder.getScript().insertStep(step, builder.record.insertionIndex);
+  builder.record.insertionIndex++;
+  builder.stepdisplay.update();
+};
+// Add JS eval step
+builder.record.evalJSStep = function() {
+  var step = new builder.Step(builder.selenium2.stepTypes.evalJS);
   builder.record.lastRecordedStep = step;
   builder.getScript().insertStep(step, builder.record.insertionIndex);
   builder.record.insertionIndex++;
@@ -141,7 +165,7 @@ builder.record.continueRecording = function(insertionIndex) {
   builder.pageState.addListener(builder.record.pageLoadListener);
 };
 
-builder.record.startRecording = function(urlText, seleniumVersion, deleteCookies) {  
+builder.record.startRecording = function(urlText, seleniumVersion, deleteCookies) {
   var anchorIndex = urlText.indexOf('#');
   if (anchorIndex !== -1) {
     urlText = urlText.substring(0, anchorIndex);
@@ -175,6 +199,17 @@ builder.record.startRecording = function(urlText, seleniumVersion, deleteCookies
         builder.gui.switchView(builder.views.script);
         builder.suite.addScript(new builder.Script(seleniumVersion));
         builder.getScript().saveRequired = true;
+        // Add inital Transaction Name if present
+        var txName = jQuery('#initial-tx-name').val();
+        if(typeof txName === 'string' && txName !== ""){
+          if(jQuery('#opt_'+txName).length){
+            alert('Transaction already exists');
+          }else{
+            jQuery('#activeTxList').append('<option id="opt_{txName}" value="{txName}">{txName}</option>'.replace(/{txName}/g, txName));
+            builder.record.startTx(txName);
+          }
+        }
+        // End inital TX Name
         builder.getScript().addStep(new builder.Step(builder.selenium2.stepTypes.get, url.href()));
         builder.stepdisplay.update();
         builder.pageState.removeListener(builder.record.pageLoadListener);

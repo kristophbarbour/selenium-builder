@@ -91,8 +91,12 @@ builder.registerPostLoadHook(function() {
   jQuery('#record-start-tx').click(function (e) {
     var txName = jQuery('#record-tx-name').val();
     if(typeof txName === 'string' && txName !== ""){
-      jQuery('#activeTxList').append('<option id="opt_{txName}" value="{txName}">{txName}</option>'.replace(/{txName}/g, txName));
-      builder.record.startTx(txName);
+      if(jQuery('#opt_'+txName).length){
+        alert('Transaction already exists');
+      }else{
+        jQuery('#activeTxList').append('<option id="opt_{txName}" value="{txName}">{txName}</option>'.replace(/{txName}/g, txName));
+        builder.record.startTx(txName);
+      }
     }else{
       alert('Invalid Transaction Name input');
     }
@@ -105,8 +109,29 @@ builder.registerPostLoadHook(function() {
       builder.record.stopTx(txName);
       optElem.remove();
     }else{
-      alert('No Transaction with ' + txName + ' exists');
+      alert('No Transaction with "' + txName + '" exists');
     }
+  });
+  // Get Browser Performance
+  jQuery('#record-get-perf').click(function (e) {
+    builder.record.getPerf();
+  });
+
+  function openTypeEdit(){
+    var step = jQuery('#'+builder.record.lastRecordedStep.id+'-type');
+    if(step.length)
+      editType(builder.record.lastRecordedStep.id);
+    else
+      setTimeout(openTypeEdit, 100);
+  }
+  // Add empty step
+  jQuery('#record-generic').click(function (e) {
+    builder.record.addEmptyStep();
+    setTimeout(openTypeEdit, 100);
+  });
+  // Add JS eval statement
+  jQuery('#record-eval-js').click(function (e) {
+    builder.record.evalJSStep("");
   });
 
   jQuery('#record-verify').click(function (e) {

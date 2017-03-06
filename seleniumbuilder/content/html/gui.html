@@ -52,19 +52,19 @@
     </ul>
     
     <div class="startrecording">
-      <span id="startrecording-msg"></span>
-      <p>
-        <form method="get" action="#record" id="startup-start-recording-field">
-          <input id="startup-url" type="text" class="texta" size="35" />
-        </form>
-      </p>
-
-      <p>
-        <form method="get" action="#record-sel2" id="startup-start-recording-sel2">
-          <input type="submit" value="Record" class="button" id="startup-start-recording-sel2-button" />
-        </form>
-      </p>
-      
+      <div>
+        <span id="startrecording-msg"></span>
+        <input id="startup-url" type="text" class="texta" size="35" />
+      </div>
+      <form method="get" action="#record" id="startup-start-recording-field">
+        <div>
+          <label for="initial-tx-name">Initial Transaction Name</label>
+          <input type="text" id="initial-tx-name" class="texta" list="activeTxList"/>            
+        </div>
+      </form>
+      <form method="get" action="#record-sel2" id="startup-start-recording-sel2">
+        <input type="submit" value="Record" class="button" id="startup-start-recording-sel2-button" />
+      </form>
       <input type="checkbox" id="delete-cookies" checked/> <label id="cookie-warning" for="delete-cookies" class="cookie-warning"></label>
     </div>
   </div>
@@ -115,17 +115,29 @@
       </div>
 
       <div id="record-panel" style="display: none;" class="panel">
-        <a href="#" id="record-verify" class="button"></a>
-        <div class="txForm">
-        <a href="#" id="record-start-tx" class="button"></a>
-          <input type="text" id="record-tx-name" class="texta" size="35" list="activeTxList"/>
-          <datalist id="activeTxList">
-          </datalist>
-          <a href="#" id="record-stop-tx" class="button"></a>
+        <div class="step-section">
+          <a href="#" id="record-verify" class="button"></a>
+          <a href="#" id="record-generic" class="button"></a>
         </div>
-        <a href="#" id="record-stop-button" class="button"></a>
-        <img id="record-spinner" src="img/loading.gif" />
-        <div id="record-do-mouseovers-div"><input type="checkbox" id="record-do-mouseovers"/> <label id="record-do-mouseovers-label" for="record-do-mouseovers"></label></div>
+        <div class="step-section">
+            <a href="#" id="record-start-tx" class="button"></a>
+            <a href="#" id="record-stop-tx" class="button"></a>
+            <input type="text" id="record-tx-name" class="texta" list="activeTxList"/>
+            <datalist id="activeTxList">
+            </datalist>
+        </div>
+        <div class="step-section">
+          <a href="#" id="record-get-perf" class="button" title="Output sent to Splunk"></a>
+          <a href="#" id="record-eval-js" class="button" title="Output sent to Splunk"></a>
+        </div>
+        <div class="step-section">
+          <a href="#" id="record-stop-button" class="button"></a>
+          <img id="record-spinner" src="img/loading.gif" />
+          <div id="record-do-mouseovers-div">
+            <input type="checkbox" id="record-do-mouseovers"/>&nbsp;
+            <label id="record-do-mouseovers-label" for="record-do-mouseovers"></label>
+          </div>
+        </div>
       </div>
 
       <div id="error-panel" style="display: none; font-size: 130%; color: #ffffff; background-color: #880000; padding: 10px; margin: 4px;">

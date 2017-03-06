@@ -1,16 +1,51 @@
+/* Timing API */
+var timingAPIScript = '\'function calculate_load_times() {' +
+'  var res = "";' +
+'  if (performance === undefined) {' +
+'    res += "= Calculate Load Times: performance NOT supported" + "\\n";' +
+'    return;' +
+'  }' +
+'  var resources = performance.getEntriesByType("resource");' +
+'  if (resources === undefined || resources.length <= 0) {' +
+'    res += "= Calculate Load Times: there are NO `resource` performance records" + "\\n";' +
+'    return;' +
+'  }' +
+'  res += "= Calculate Load Times" + "\\n";' +
+'  for (var i=0; i < resources.length; i++) {' +
+'    res += "== Resource[" + i + "] - " + resources[i].name + "\\n";' +
+'    var t = resources[i].redirectEnd - resources[i].redirectStart;' +
+'    res += "... Redirect time = " + t + "\\n";' +
+'    t = resources[i].domainLookupEnd - resources[i].domainLookupStart;' +
+'    res += "... DNS lookup time = " + t + "\\n";' +
+'    t = resources[i].connectEnd - resources[i].connectStart;' +
+'    res += "... TCP time = " + t + "\\n";' +
+'    t = (resources[i].secureConnectionStart > 0) ? (resources[i].connectEnd - resources[i].secureConnectionStart) : "0";' +
+'    res += "... Secure connection time = " + t + "\\n";' +
+'    t = resources[i].responseEnd - resources[i].responseStart;' +
+'    res += "... Response time = " + t + "\\n";' +
+'    t = (resources[i].fetchStart > 0) ? (resources[i].responseEnd - resources[i].fetchStart) : "0";' +
+'    res += "... Fetch until response end time = " + t + "\\n";' +
+'    t = (resources[i].requestStart > 0) ? (resources[i].responseEnd - resources[i].requestStart) : "0";' +
+'    res += "... Request start until response end time = " + t + "\\n";' +
+'    t = (resources[i].startTime > 0) ? (resources[i].responseEnd - resources[i].startTime) : "0";' +
+'    res += "... Start until response end time = " + t + "\\n";' +
+'  }' +
+'  return res;' +
+'}\'';
 builder.selenium2.io.addLangFormatter({
   name: "Python",
   extension: ".py",
   not: "not ",
   start:
     "# -*- coding: utf-8 -*-\n" +
-    "from selenium.webdriver.firefox.webdriver import WebDriver\n" +
+    "from selenium import webdriver\n" +
     "from selenium.webdriver.common.action_chains import ActionChains\n" +
     "from selenium.webdriver.common.keys import Keys\n" +
     "import time\n" +
+    "import sys\n" +
     "\n" +
     "success = True\n" +
-    "wd = WebDriver()\n" +
+    "wd = webdriver.Firefox()\n" +
     "wd.implicitly_wait({timeoutSeconds})\n" +
     "\n" +
     "def is_alert_present(wd):\n" +
@@ -23,6 +58,8 @@ builder.selenium2.io.addLangFormatter({
     "try:\n",
   ind: "    ",
   end:
+    "except:\n" +
+    "    print \"Unexpected error:\", sys.exc_info()[0]\n" +
     "finally:\n" +
     "    wd.quit()\n" +
     "    if not success:\n" +
@@ -41,9 +78,13 @@ builder.selenium2.io.addLangFormatter({
     "print":
       "{ind}print({text})\n",
     "startTx":
-      "{ind}print('[start_tx] {name}')\n",
+      "{ind}print('[start_tx] ' + {name})\n",
     "stopTx":
-      "{ind}print('[stop_tx] {name}')\n",
+      "{ind}print('[stop_tx] ' + {name})\n",
+    "getPerf":
+      "{ind}print wd.execute_script(" + this.timingAPIScript + ")\n",
+    "evalJS":
+      "{ind}wd.execute_script({text})\n",
     "pause":
       "{ind}time.sleep(float({waitTime}) / 1000)\n",
     "clickElement":

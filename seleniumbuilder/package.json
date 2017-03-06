@@ -1,6 +1,6 @@
 {
-  "name": "australenium",
-  "title": "australenium",
+  "name": "Selenium Studio",
+  "title": "Selenium Studio",
   "id": "4wf56ef435w6@jds",
   "description": "a basic Selnium Builder add-on fork",
   "main": "./content/seleniumbuilder3.js",

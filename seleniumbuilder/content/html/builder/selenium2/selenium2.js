@@ -134,7 +134,9 @@ builder.selenium2.__stepData = {
   "storeEval":                       ["script", "variable"],
   "setWindowSize":                   ["width", "height"],
   "startTx":                         ["name"], 
-  "stopTx":                          ["name"]
+  "stopTx":                          ["name"], 
+  "evalJS":                          ["text"],
+  "getPerf":                         []
 };
 
 builder.selenium2.__stepNotes = {
@@ -265,7 +267,7 @@ builder.selenium2.categories = [
     builder.selenium2.stepTypes.storePageSource,
     builder.selenium2.stepTypes.storeElementSelected,
     builder.selenium2.stepTypes.storeElementAttribute,
-	builder.selenium2.stepTypes.storeElementStyle,
+    builder.selenium2.stepTypes.storeElementStyle,
     builder.selenium2.stepTypes.storeElementValue,
     builder.selenium2.stepTypes.storeCookiePresent,
     builder.selenium2.stepTypes.storeCookieByName,

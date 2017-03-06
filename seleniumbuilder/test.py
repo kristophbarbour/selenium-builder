@@ -6,7 +6,7 @@ import time
 import sys
 
 success = True
-wd = webdriver.Chrome('./geckodriver')
+wd = webdriver.Firefox()
 wd.implicitly_wait(60)
 
 def is_alert_present(wd):
@@ -17,15 +17,23 @@ def is_alert_present(wd):
         return False
 
 try:
-    wd.get("https://support.mozilla.org/t5/Problems-with-add-ons-plugins-or/Add-on-signing-in-Firefox/ta-p/30262")
-    print('[start_tx] "test_tx"')
-    if wd.find_element_by_xpath("//div[@id='messageview2']/div/div/div[1]/div/div/div/div/div[2]/div/div[1]/div/div[2]/div/div[2]/div/div[2]/h2/input").is_selected():
-        wd.find_element_by_xpath("//div[@id='messageview2']/div/div/div[1]/div/div/div/div/div[2]/div/div[1]/div/div[2]/div/div[2]/div/div[2]/h2/input").click()
-    print('[start_tx] "test_tx_2"')
-    if wd.find_element_by_xpath("//div[@id='messageasfdview2']/div/div/div[1]/div/div/div/div/div[2]/div/div[1]/div/div[2]/div/div[2]/div/div[3]/h2/input").is_selected():
-        wd.find_element_by_xpath("//div[@id='messaadsgeview2']/div/div/div[1]/div/div/div/div/div[2]/div/div[1]/div/div[2]/div/div[2]/div/div[3]/h2/input").click()
-    print('[stop_tx] "test_tx"')
-    print('[stop_tx] "test_tx_2"')
+    print('[start_tx] ' + "start")
+    wd.get("http://www.sebuilder.com/")
+    print wd.execute_script(function calculate_load_times() {  var res = "";  # Check performance support  if (performance === undefined) {    res += "= Calculate Load Times: performance NOT supported" + "
+";    return;  }  # Get a list of "resource" performance entries  var resources = performance.getEntriesByType("resource");  if (resources === undefined || resources.length <= 0) {    res += "= Calculate Load Times: there are NO `resource` performance records" + "
+";    return;  }  res += "= Calculate Load Times" + "
+";  for (var i=0; i < resources.length; i++) {    res += "== Resource[" + i + "] - " + resources[i].name + "
+";    # Redirect time    var t = resources[i].redirectEnd - resources[i].redirectStart;    res += "... Redirect time = " + t + "
+";    # DNS time    t = resources[i].domainLookupEnd - resources[i].domainLookupStart;    res += "... DNS lookup time = " + t + "
+";    # TCP handshake time    t = resources[i].connectEnd - resources[i].connectStart;    res += "... TCP time = " + t + "
+";    # Secure connection time    t = (resources[i].secureConnectionStart > 0) ? (resources[i].connectEnd - resources[i].secureConnectionStart) : "0";    res += "... Secure connection time = " + t + "
+";    # Response time    t = resources[i].responseEnd - resources[i].responseStart;    res += "... Response time = " + t + "
+";    # Fetch until response end    t = (resources[i].fetchStart > 0) ? (resources[i].responseEnd - resources[i].fetchStart) : "0";    res += "... Fetch until response end time = " + t + "
+";    # Request start until reponse end    t = (resources[i].requestStart > 0) ? (resources[i].responseEnd - resources[i].requestStart) : "0";    res += "... Request start until response end time = " + t + "
+";    # Start until reponse end    t = (resources[i].startTime > 0) ? (resources[i].responseEnd - resources[i].startTime) : "0";    res += "... Start until response end time = " + t + "
+";  }  return res;})
+    wd.execute_script("return \"Hello World\";")
+    print('[stop_tx] ' + "start")
 except:
     print "Unexpected error:", sys.exc_info()[0]
 finally:
