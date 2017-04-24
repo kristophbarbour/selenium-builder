@@ -133,6 +133,7 @@ builder.selenium2.__stepData = {
   "waitForEval":                     ["script", "value"],
   "storeEval":                       ["script", "variable"],
   "setWindowSize":                   ["width", "height"],
+  "snapshotOnError":                 ["name"], 
   "startTx":                         ["name"], 
   "stopTx":                          ["name"], 
   "evalJS":                          ["text"],

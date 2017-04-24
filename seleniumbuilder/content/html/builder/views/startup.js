@@ -10,12 +10,15 @@ builder.registerPostLoadHook(function () {
   jQuery('#startup-plugins').append(newNode('span', _t('updates_available'), {'id': 'startup-plugins-hasupdates', 'style': "display: none;", 'class': "updates-available"}));
   
   jQuery('#startrecording-msg').text(_t('start_recording_at'));
+  jQuery('#snapshot-flag').text(_t('snapshot_flag'));
   jQuery('#cookie-warning').text(_t('cookie_warning'));
   
   jQuery('#startup-start-recording-sel2-button').val(_t('menu_record'));
   jQuery('#startup-start-recording-sel2').submit(function() {
     var deleteCookies = jQuery("#delete-cookies").prop("checked");
     sebuilder.prefManager.setBoolPref("extensions.seleniumbuilder3.clearCookies", deleteCookies);
+    // Set Snapshot on Error
+    builder.record.setSnapshotOnError(jQuery('#snapshot-on-error').prop('checked'));
     builder.record.startRecording(jQuery('#startup-url').val(), builder.selenium2, deleteCookies);
   });
 });

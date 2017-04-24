@@ -50,6 +50,10 @@ img {
   display:  block;
 }
 
+#startup-start-recording-sel2-button{
+  margin:0;
+}
+
 /**
  * Buttons:
  * The buttons use css to give a rounded border, and a background image for the gradient.
@@ -364,7 +368,8 @@ div a:last-child
 
 /** Startup */
 .cookie-warning {
-  color: #aa0000;
+  color: #e74d4d;
+  
 }
 
 #startup * {
@@ -415,6 +420,7 @@ h1 {
 }
 #startup form {
   display: inline;
+  margin:0;
 }
 
 

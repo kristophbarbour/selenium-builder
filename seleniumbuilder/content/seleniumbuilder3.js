@@ -94,7 +94,7 @@ sebuilder.boot = function() {
   sebuilder.recordingTab = getBrowser().mCurrentTab;
   
   if (sebuilder.getRecordingWindow().location.href.substring(0, "about:".length) == "about:") {
-    sebuilder.getRecordingWindow().location = "http://www.sebuilder.com";
+    sebuilder.getRecordingWindow().location = "http://jds.net.au";
   }
 
   // Make it obvious which tab is recording by turning it green!

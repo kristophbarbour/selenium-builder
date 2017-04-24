@@ -69,6 +69,12 @@ builder.record.addEmptyStep = function() {
   builder.stepdisplay.update();
 };
 
+// Set Snapshot on Error flag
+builder.record.setSnapshotOnError = function(value){
+  console.log('setSnapshotOnError:', value);
+  var step = new builder.Step(builder.selenium2.stepTypes.snapshotOnError, value);
+  builder.getScript().insertStep(step, builder.record.insertionIndex);
+};
 // Start Transaction step
 builder.record.startTx = function(tx_name) {
   var step = new builder.Step(builder.selenium2.stepTypes.startTx, tx_name);
